@@ -11,6 +11,26 @@
 				<li><a href="#" id="active">Home</a></li>
 				<li><a href="#">About</a></li>
 				<li><a href="#">Blog</a></li>
+				<li class="pull-right" id="sub-menu-toggle">
+					<a href="#" class="no-link">Login / Register</a>
+					<div id="sub-menu">
+						<div id="account-form">
+							<div class="header header-6">
+								Log in
+							</div>
+							<form>
+								<input type="text" placeholder="Username" />
+								<!-- <input type="password" placeholder="Password" />
+								<input type="submit" class="button button-success" /> -->
+								<input type="submit" name="search" value="Go" style="float: right" />
+  <div style="overflow: hidden; padding-right: .5em;">
+    <input type="text" name="term" style="width: 100%;" />
+   </div>
+							</form>
+							<span>Or <a href="">register</a></span>
+						</div>
+					</div>
+				</li>
 			</ul>
 		</div>
 		<div id="hero-unit">
@@ -31,7 +51,7 @@
 				</form>
 			</div>
 			<div id="col-2">
-				<div class="header">
+				<div class="header header-1">
 					Welcome
 				</div>
 				<p>
