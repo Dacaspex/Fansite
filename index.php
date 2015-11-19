@@ -1,3 +1,39 @@
+<?php
+	
+	session_start();
+	session_regenerate_id();
+
+	include_once('php/user.php');
+
+	// Init variables
+	$user = NULL;
+
+	// Check for an active session
+	// Else check for login try
+	if (isset($_SESSION['userId'])) {
+
+		// Check if session is valid and return a user
+		$user = User::getUserById($_SESSION['userId']);
+
+		if (is_null($user)) {
+
+			// Session was not valid, throw error
+
+
+		}
+
+	} else if (isset($_POST['submit'])) {
+		
+		// Parse variables
+		$username = mysql_real_escape_string($_POST['username_fansite']);
+
+
+
+	}
+
+?>
+
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>E D E N</title>
@@ -18,16 +54,14 @@
 							<div class="header header-6">
 								Log in
 							</div>
-							<form>
-								<input type="text" placeholder="Username" />
-								<!-- <input type="password" placeholder="Password" />
-								<input type="submit" class="button button-success" /> -->
-								<input type="submit" name="search" value="Go" style="float: right" />
-  <div style="overflow: hidden; padding-right: .5em;">
-    <input type="text" name="term" style="width: 100%;" />
-   </div>
+							<form action="index.php" method="POST">
+								<input type="text" name="username_fansite" placeholder="Username" />
+								<input type="submit" name="submit" value="Log in" id="login-button"/>
+								<div id="password-input">
+									<input type="password" name="password_fansite" placeholder="Password" id="password-input"/>
+								</div>
 							</form>
-							<span>Or <a href="">register</a></span>
+							<span>Or <a href="register.php">register</a></span>
 						</div>
 					</div>
 				</li>
@@ -42,7 +76,7 @@
 			</div>
 		</div>
 		<div id="wrapper">
-			<div class="panel panel-info">Failed to login</div>
+			<div class="panel panel-success">Successfully logged in</div>
 			<div id="col-1">
 				<form id="newsletter-box">
 					<span>Sign in for the newsletter</span>

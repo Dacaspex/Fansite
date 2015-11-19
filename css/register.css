@@ -1,0 +1,12 @@
+.label {
+	width: 200px;
+}
+.input {
+	width: 300px;
+}
+#register-button {
+	width: 150px;
+	height: 35px;
+	background-color: #74A0F2;
+	color: white;
+}

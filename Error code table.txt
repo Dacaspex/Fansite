@@ -1,0 +1,4 @@
+Error code table
+
+0 - No error
+1 - Passwords do not match (register.php)

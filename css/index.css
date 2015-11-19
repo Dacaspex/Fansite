@@ -4,6 +4,7 @@
 	background-image: url("../img/test2.jpg");
 	background-size: 100%;
 	background-position: center;
+	box-shadow: 0px 0px 5px grey;
 }
 #hero-unit > #inner-wrapper {
 	width: 900px;
@@ -28,7 +29,7 @@
 	font-size: 1.5em;
 }
 #col-1 {
-	margin-right: 10px;
+	margin-right: 20px;
 	width: 300px;
 	float: left;
 }
@@ -47,6 +48,6 @@
 	margin-left: 0px;
 }
 #col-2 {
-	width: 590px;
+	width: 580px;
 	float: left;
 }
