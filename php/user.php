@@ -12,8 +12,8 @@
 
 		}
 
-		public static function getUserById($userId, $dbLink)
-		{
+		public static function getUserById($userId, $dbLink) {
+
 			$result = mysqli_query($dbLink, "SELECT * FROM users WHERE id='" . $userId . "'");
 
 			if (mysqli_num_rows($result) == 1) {
@@ -34,8 +34,26 @@
 			}
 		}
 
-		public static function validateUser($username, $password, $dbLink)
-		{
+		public static function register($username, $password, $email, $dbLink) {
+
+			$hashedPassword = generateHash($password);
+
+			$stmt = $dbLink->prepare("INSERT INTO users (username, password, email) VALUES (?, ?, ?)");
+
+			$stmt->bind_param("sss", $username, $hashedPassword, $email);
+
+			$stmt->execute();
+
+		}
+
+		public static function checkHash($password, $hash) {
+
+			return $hash == crypt($password, $hash);
+
+		}
+
+		public static function validateUser($username, $password, $dbLink) {
+
 			$result = mysqli_query($dbLink, "SELECT * FROM users WHERE first_name='" . $username . "' AND password='" . $password . "'");
 
 			if (mysqli_num_rows($result) == 1) {

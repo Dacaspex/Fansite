@@ -3,6 +3,7 @@
 	session_start();
 	session_regenerate_id();
 
+	include_once('php/dbLink.php');
 	include_once('php/user.php');
 	include_once('php/core.php');
 
@@ -29,32 +30,36 @@
 
 	} else if (isset($_POST['submitRegister'])) {
 
-		echo "begin";
-		
 		// Parse variables
 		$username = mysql_real_escape_string($_POST['username123']);
 		$password = mysql_real_escape_string($_POST['password123']);
 		$passwordCheck = mysql_real_escape_string($_POST['passwordCheck123']);
 		$email = mysql_real_escape_string($_POST['email123']);
 
-		// Check if passwords match
-		if ($password == $passwordCheck) {
+		// Check if the input is correct
+		if (validateText($username) && validateText($password) && validateEmail($email)) {
 
-			echo "passwords match";
+			// Check if passwords match
+			if ($password == $passwordCheck) {
 
-			// Check if the input is correct
-			if (validateText($username) && validateText($password) && validateEmail($email)) {
+				User::register($username, $password, $email, $dbLink);
 
-				echo "All good";
+
+				header('Location: index.php');
+
+			} else {
+
+				// Passwords didn't match, throw an error
+				$errorCode = 1;
 
 			}
 
-		}
-			
-	} else {
+		} else {
 
-		// Passwords didn't match, give an error
-		$errorCode = 1;
+			// Invaled credentials, throw an error
+			$errorCode = 2;
+
+		}
 
 	}
 
@@ -66,7 +71,6 @@
 		<title>E D E N</title>
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<link rel="stylesheet" type="text/css" href="css/register.css">
-		<link rel="stylesheet" type="text/css" href="css/index.css">
 		<link href='https://fonts.googleapis.com/css?family=Roboto:100,300' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
@@ -84,7 +88,7 @@
 							</div>
 							<form action="index.php" method="POST">
 								<input type="text" name="username_fansite" placeholder="Username" />
-								<input type="submitLogin" name="submit" value="Log in" id="login-button"/>
+								<input type="submit" name="submit" value="Log in" id="login-button"/>
 								<div id="password-input">
 									<input type="password" name="password_fansite" placeholder="Password" id="password-input"/>
 								</div>
