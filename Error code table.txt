@@ -1,4 +1,6 @@
 Error code table
 
 0 - No error
-1 - Passwords do not match (register.php)
+1 - Successfully registered
+2 - Something went wrong while registereing
+3 - Successfully logged in

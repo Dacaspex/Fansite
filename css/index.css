@@ -34,18 +34,31 @@
 	float: left;
 }
 #newsletter-box {
-	padding: 10px;
-	width: 280px;
+	padding: 20px 0px;
+	width: 100%;
 	background-color: #eee;
 }
+#newsletter-form {
+	margin: 0px auto;
+	width: 600px;
+}
 #newsletter-box > span {
-	display: block;
-	margin-bottom: 5px;
+	float: left;
 	font-size: 1em;
 	color: #777;
 }
-#newsletter-box > .button {
-	margin-left: 0px;
+#newsletter-form > input[type=text] {
+	margin: 0px;
+	width: 340px;
+}
+#newsletter-form > .button {
+	display: block;
+	float: right;
+	margin: 0px;
+	margin-top: 0px;
+	width: 70px;
+	height: 39px;
+	line-height: 39px;
 }
 #col-2 {
 	width: 580px;

@@ -45,9 +45,15 @@
 
 	}
 
-	function setRedirectCode($codeId) {
+	function checkHash($password, $hash) {
 
-		$_SESSION["redirect_code"] = $codeId;
+		return $hash == crypt($password, $hash);
+
+	}
+
+	function setRedirectCode($redirectCode) {
+
+		$_SESSION["redirect_code"] = $redirectCode;
 
 	}
 

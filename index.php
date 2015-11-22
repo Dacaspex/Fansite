@@ -3,22 +3,27 @@
 	session_start();
 	session_regenerate_id();
 
+	include_once('php/dbLink.php');
 	include_once('php/user.php');
+	include_once('php/core.php');
 
 	// Init variables
 	$user = NULL;
+	$errorMessage = '';
+	$errorCode = 0;
 
 	// Check for an active session
 	// Else check for login try
 	if (isset($_SESSION['userId'])) {
 
-		// Check if session is valid and return a user
-		$user = User::getUserById($_SESSION['userId']);
+		// Check if session is valid
+		$user = User::getUserById($_SESSION['userId'], $dbLink);
 
 		if (is_null($user)) {
 
-			// Session was not valid, throw error
-
+			// Session is not valid, throw error
+			$errorCode = 4;
+			User::killSession();
 
 		}
 
@@ -26,9 +31,81 @@
 		
 		// Parse variables
 		$username = mysql_real_escape_string($_POST['username_fansite']);
+		$password = mysql_real_escape_string($_POST['password_fansite']);
 
+		// Valiate input
+		if (validateText($username) && validateText($password)) {
 
+			// Check if the username exists
+			if (!User::isUsernameAvailable($username, $dbLink)) {
 
+				// Validate log in credentials
+				$user = User::validate($username, $password, $dbLink);
+
+				if (!is_null($user)) {
+
+					// Log in credentials are correct, log the user in
+					$user->login();
+					setRedirectCode(3);
+					header('Location: index.php');
+					exit();
+
+				} else {
+
+					// Password and username don't match, throw an error
+					$errorCode = 3;
+
+				}
+
+			} else {
+
+				// The username does not appear in the databse, throw an error
+				$errorCode = 2;
+
+			}
+
+		} else {
+
+			// Format is wrong, throw an error
+			$errorCode = 1;
+
+		}
+	}
+
+	switch (getRedirectCode()) {
+		case 1:
+			$errorMessage = '<div class="panel panel-success">Successfully registerd. Log in to enable more features on the site!</div>';
+			break;
+
+		case 2:
+			$errorMessage = '<div class="panel panel-alert">Something went wrong while registering</div>';
+			break;
+
+		case 3:
+			$errorMessage = '<div class="panel panel-success">Successfully logged in</div>';
+			break;
+		
+		default:
+			break;
+	}
+
+	clearRedirectCode();
+
+	switch ($errorCode) {
+		case 1:
+			$errorMessage = '<div class="panel panel-alert">Username and password format are wrong</div>';
+			break;
+
+		case 2:
+			$errorMessage = '<div class="panel panel-warning">This username does not exists (yet)</div>';
+			break;
+
+		case 3:
+			$errorMessage = '<div class="panel panel-alert">The given password was incorrect</div>';
+			break;
+		
+		default:
+			break;
 	}
 
 ?>
@@ -40,11 +117,12 @@
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<link rel="stylesheet" type="text/css" href="css/index.css">
 		<link href='https://fonts.googleapis.com/css?family=Roboto:100,300' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
 		<div id="page-top">
 			<ul id="navbar">
-				<li><a href="#" id="active">Home</a></li>
+				<li><a href="index.php" id="active">Home</a></li>
 				<li><a href="#">About</a></li>
 				<li><a href="#">Blog</a></li>
 				<li class="pull-right" id="sub-menu-toggle">
@@ -75,15 +153,20 @@
 				</div>
 			</div>
 		</div>
+		<div id="newsletter-box">
+			<form id="newsletter-form">
+				<span>Sign in for the newsletter</span>
+				<input type="text" placeholder="e-mail"/>
+				<input class="button button-success button-inline" type="submit" value="Send">
+			</form>
+		</div>
 		<div id="wrapper">
-			<div class="panel panel-success">Successfully logged in</div>
-			<div id="col-1">
-				<form id="newsletter-box">
-					<span>Sign in for the newsletter</span>
-					<input type="text" />
-					<input class="button button-success button-inline" type="submit" value="Send">
-				</form>
-			</div>
+			<div id="margin-fix"></div>
+			<?php
+
+				echo $errorMessage;
+
+			?>
 			<div id="col-2">
 				<div class="header header-1">
 					Welcome

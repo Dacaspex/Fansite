@@ -2,6 +2,7 @@ body {
 	margin: 0px;
 	padding: 0px;
 	font-family: 'Roboto';
+	z-index: 1;
 }
 ul {
 	margin: 0px;
@@ -9,6 +10,8 @@ ul {
 }
 p {
 	font-weight: 300;
+	font-family: 'Lato';
+	font-size: 1.05em;
 }
 form {
 	margin-bottom: 0px;
@@ -131,6 +134,10 @@ a {
 	border-left: 5px solid #74A0F2;
 	background-color: #DEE9FF;
 }
+.panel-warning {
+	border-left: 5px solid #F2BF27;
+	background-color: #FFF3CF;
+}
 .header {
 	border-bottom: 1px solid #ddd;
 	font-weight: 300;
@@ -139,6 +146,11 @@ a {
 	margin-bottom: 30px;
 	padding: 10px;
 	font-size: 2em;
+}
+.header-4 {
+	margin-bottom: 15px;
+	padding: 5px;
+	font-size: 1.1em;
 }
 .header-6 {
 	margin-bottom: 10px;

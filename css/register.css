@@ -1,3 +1,8 @@
+form#register-form {
+	margin-right: 20px;
+	width: 500px;
+	float: left;
+}
 .label {
 	width: 200px;
 }
@@ -9,4 +14,17 @@
 	height: 35px;
 	background-color: #74A0F2;
 	color: white;
+}
+#register-information {
+	float: left;
+	padding: 20px;
+	width: 340px;
+	background-color: #eee;
+}
+#register-information-ul {
+	margin-left: 20px;
+	list-style-type: circle;
+}
+#register-information-ul > li {
+	margin-bottom: 10px;
 }

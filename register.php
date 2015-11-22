@@ -11,12 +11,17 @@
 	$user = NULL;
 	$errorCode = 0;
 
+	$username = '';
+	$password = '';
+	$passwordCheck = '';
+	$email = '';
+
 	// Check for an active session
 	// Else check for login try
 	if (isset($_SESSION['userId'])) {
 
 		// Check if session is valid and return a user
-		$user = User::getUserById($_SESSION['userId']);
+		$user = User::getUserById($_SESSION['userId'], $dbLink);
 
 		if (is_null($user)) {
 			// Session was not valid, throw error
@@ -39,18 +44,39 @@
 		// Check if the input is correct
 		if (validateText($username) && validateText($password) && validateEmail($email)) {
 
-			// Check if passwords match
-			if ($password == $passwordCheck) {
+			// Check for username availability
+			if (User::isUsernameAvailable($username, $dbLink)) {
 
-				User::register($username, $password, $email, $dbLink);
+				// Check if passwords match
+				if ($password == $passwordCheck) {
 
+					$succes = User::register($username, $password, $email, $dbLink);
 
-				header('Location: index.php');
+					if ($succes) {
+
+						// Successfully reigstered the user, redirect to the index page
+						setRedirectCode(1);
+						header('Location: index.php');
+
+					} else {
+
+						// Something went wrong, throw an error
+						setRedirectCode(2);
+						header('Location: index.php');
+
+					}
+
+				} else {
+
+					// Passwords didn't match, throw an error
+					$errorCode = 1;
+
+				}
 
 			} else {
 
-				// Passwords didn't match, throw an error
-				$errorCode = 1;
+				// Username is not available, throw an error
+				$errorCode = 3;
 
 			}
 
@@ -104,23 +130,43 @@
 			<div class="header header-1">
 				Register
 			</div>
-			<form action="register.php" method="POST">
+			<?php
+
+				switch ($errorCode) {
+					case 1:
+						echo '<div class="panel panel-alert">Could not register: Passwords didn\'t match</div>';
+						break;
+
+					case 2:
+						echo '<div class="panel panel-warning">Could not register: Invaled username, password and/or e-mail adress<br /><br />Only numbers and letters are allowed in your username and password</div>';
+						break;
+
+					case 3:
+						echo '<div class="panel panel-warning">That username is not available</div>';
+						break;
+					
+					default:
+						break;
+				}
+
+			?>
+			<form action="register.php" method="POST" id="register-form">
 				<table>
 					<tr>
 						<td class="label">Username</td>
-						<td class="input"><input type="text" name="username123" placeholder="Username" /></td>
+						<td class="input"><input type="text" name="username123" placeholder="Username" <?php echo 'value="' . $username . '"'; ?> /></td>
 					</tr>
 					<tr>
 						<td>Password</td>
-						<td><input type="password" name="password123" placeholder="Password" /></td>
+						<td><input type="password" name="password123" placeholder="Password" <?php echo 'value="' . $password . '"'; ?> /></td>
 					</tr>
 					<tr>
 						<td>Check password</td>
-						<td><input type="password" name="passwordCheck123" placeholder="Password" /></td>
+						<td><input type="password" name="passwordCheck123" placeholder="Password" <?php echo 'value="' . $passwordCheck . '"'; ?> /></td>
 					</tr>
 					<tr>
 						<td>E-mail adress</td>
-						<td><input type="text" name="email123" placeholder="E-mail" /></td>
+						<td><input type="text" name="email123" placeholder="E-mail" <?php echo 'value="' . $email . '"'; ?> /></td>
 					</tr>
 					<tr>
 						<td class="label"></td>
@@ -128,6 +174,16 @@
 					</tr>
 				</table>
 			</form>
+			<div id="register-information">
+				<div class="header header-4">
+					Benefits of registering
+				</div>
+				<ul id="register-information-ul">
+					<li>Ability to reply to blog posts</li>
+					<li>Being able to purchase goodies in the shop</li>
+					<li>Be awesome</li>
+				</ul>
+			</div>
 		</div>
 	</body>
 </html>
