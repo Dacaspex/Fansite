@@ -1,11 +1,9 @@
 <?php
 
-	session_start();
-	session_regenerate_id();
-
 	include_once('php/dbLink.php');
 	include_once('php/user.php');
 	include_once('php/core.php');
+	include_once('php/secureSession.php');
 
 	// Init variables
 	$user = NULL;
@@ -16,6 +14,10 @@
 	$passwordCheck = '';
 	$email = '';
 
+	// Session setup
+	SecureSession::start();
+	SecureSession::setup();
+
 	// Check for an active session
 	// Else check for login try
 	if (isset($_SESSION['userId'])) {
@@ -23,7 +25,7 @@
 		// Check if session is valid and return a user
 		$user = User::getUserById($_SESSION['userId'], $dbLink);
 
-		if (is_null($user)) {
+		if (!$user->isValidated()) {
 			// Session was not valid, throw error
 
 
@@ -103,8 +105,8 @@
 		<div id="page-top">
 			<ul id="navbar">
 				<li><a href="index.php">Home</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="#">Blog</a></li>
+				<li><a href="#">Music</a></li>
+				<li><a href="blog.php">Blog</a></li>
 				<li class="pull-right" id="sub-menu-toggle">
 					<a href="#" class="no-link">Login / Register</a>
 					<div id="sub-menu">

@@ -74,37 +74,7 @@
 		}
 	}
 
-	switch (getRedirectCode()) {
-		case 1:
-			$errorMessage = '<div class="panel panel-success">Successfully registerd. Log in to enable more features on the site!</div>';
-			break;
-
-		case 2:
-			$errorMessage = '<div class="panel panel-alert">Something went wrong while registering</div>';
-			break;
-
-		case 3:
-			$errorMessage = '<div class="panel panel-success">Successfully logged in</div>';
-			break;
-		
-		default:
-			break;
-	}
-
-	clearRedirectCode();
-
 	switch ($errorCode) {
-		case 1:
-			$errorMessage = '<div class="panel panel-alert">Username and password format are wrong</div>';
-			break;
-
-		case 2:
-			$errorMessage = '<div class="panel panel-warning">This username does not exists (yet)</div>';
-			break;
-
-		case 3:
-			$errorMessage = '<div class="panel panel-alert">The given password was incorrect</div>';
-			break;
 		
 		default:
 			break;
@@ -117,16 +87,16 @@
 	<head>
 		<title>E D E N</title>
 		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<link rel="stylesheet" type="text/css" href="css/index.css">
+		<link rel="stylesheet" type="text/css" href="css/blog.css">
 		<link href='https://fonts.googleapis.com/css?family=Roboto:100,300' rel='stylesheet' type='text/css'>
 		<link href='https://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
 		<div id="page-top">
 			<ul id="navbar">
-				<li><a href="index.php" id="active">Home</a></li>
-				<li><a href="#">Music</a></li>
-				<li><a href="blog.php">Blog</a></li>
+				<li><a href="index.php">Home</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#" id="active">Blog</a></li>
 				<?php
 					if (!$user->isValidated()) {
 				?>
@@ -162,44 +132,24 @@
 				?>
 			</ul>
 		</div>
-		<div id="hero-unit">
-			<div id="inner-wrapper">
-				<div id="message-box">
-					<span id="name">E D E N</span><br />
-					<span id="qoute">Music for you</span>
-				</div>
-			</div>
-		</div>
-		<div id="newsletter-box">
-			<form id="newsletter-form">
-				<span>Sign in for the newsletter</span>
-				<input type="text" placeholder="e-mail"/>
-				<input class="button button-success button-inline" type="submit" value="Send">
-			</form>
-		</div>
 		<div id="wrapper">
 			<div id="margin-fix"></div>
-			<?php
-
-				echo $errorMessage;
-
-			?>
-			<div id="col-1">
-				<div class="header header-1">
-					Welcome
-				</div>
-				<p>
-					Jonathan Ng, going by the name of <strong>EDEN</strong> is a Electro, House and Melodic Dubstep producer, originating in Hong Kong SAR but now lives in Dublin, Ireland. EDEN so far has two releases on Monstercat which are 'Scribble' and 'The Fire' which are both in collaboration with Puppet. Since then, The Eden Project has mentioned on social media that he would love to be part of the Monstercat family, however wants to remain with his current music label, NoCopyRightSounds for a while longer.
-				</p>
+			<div class="header header-1">
+				Blog!
 			</div>
-			<div id="col-2">
-				<div class="header header-1">
-					Latest music
+			<div id="hero-unit">
+				<div id="latest-blogs-box">
+					<div class="header header-4">
+						Latests blogs
+					</div>
+					<ul id="latest-posts-ul">
+						<li><a href="#">An awesome blog!</a></li>
+						<li><a href="#">Another one</a></li>
+						<li><a href="#">Ermahgeud</a></li>
+					</ul>
 				</div>
-				<p>
-					
-				</p>
 			</div>
+			
 		</div>
 	</body>
 </html>

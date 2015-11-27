@@ -2,17 +2,14 @@
 
 	function validateText($text) {
 
-		if ($text == "") {
+		if ($text == "")
 			return false;
-		}
 
-		if (!ctype_alnum($text)) {
+		if (!ctype_alnum($text))
 			return false;
-		}
 
-		if (ctype_space($text)) {
+		if (ctype_space($text))
 			return false;
-		}
 
 		return true;
 

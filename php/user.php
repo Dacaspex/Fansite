@@ -1,15 +1,23 @@
 <?php
 
 	class User {
+
 		private $userId;
 		private $username;
+		private $validated;
 
-		function __construct($userId, $username, $email) {
+		function __construct($userId, $username, $email, $validated) {
 
 			$this->userId = $userId;
 			$this->username = $username;
 			$this->email = $email;
+			$this->validated = $validated;
 
+		}
+
+		public function getUsername() {
+
+			return $this->username;
 		}
 
 		public function login() {
@@ -24,23 +32,33 @@
 
 		}
 
+		public function isValidated() {
+
+			return $this->validated;
+
+		}
+
 		public static function getUserById($userId, $dbLink) {
 
+			// Prepare and execute SQL
 			$stmt = $dbLink->prepare("SELECT id, username, email FROM users WHERE id = (?)");
 
 			$stmt->bind_param('s', $userId);
 			$stmt->execute();
 			$stmt->bind_result($resultId, $resultUsername, $resultEmail);
 
+			// Check respons
 			while ($stmt->fetch()) {
 
+				// Respons was valid, return a user
 				$stmt->close();
-				return new User($resultId, $resultUsername, $resultEmail);
+				return new User($resultId, $resultUsername, $resultEmail, true);
 
 			}
 
+			// Repsons wasn't valid, return an invalid user
 			$stmt->close();
-			return NULL;
+			return new User(NULL, NULL, NULL, false);
 
 		}
 
@@ -96,14 +114,14 @@
 				} else {
 
 					$stmt->close();
-					return NULL;
+					return new User(NULL, NULL, NULL, false);
 
 				}
 
 			}
 
 			$stmt->close();
-			return NULL;
+			return new User(NULL, NULL, NULL, false);
 
 		}
 

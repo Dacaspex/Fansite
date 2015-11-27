@@ -1,0 +1,22 @@
+#hero-unit {
+	padding: 50px 0px 0px 30px;
+	margin-top: -10px;
+	width: 870px;
+	height: 350px;
+	background-image: url('../img/mountains.jpg');
+	background-size: 100%;
+}
+#latest-blogs-box {
+	padding: 20px;
+	width: 340px;
+	background-color: #eee;
+	opacity: 0.8;
+	box-shadow: 0px 0px 10px grey;
+}
+#latest-posts-ul {
+	margin-left: 20px;
+	list-style-type: circle;
+}
+#latest-posts-ul > li {
+	margin-bottom: 10px;
+}
