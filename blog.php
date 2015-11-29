@@ -140,16 +140,78 @@
 			<div id="hero-unit">
 				<div id="latest-blogs-box">
 					<div class="header header-4">
-						Latests blogs
+						Blog
 					</div>
 					<ul id="latest-posts-ul">
-						<li><a href="#">An awesome blog!</a></li>
-						<li><a href="#">Another one</a></li>
-						<li><a href="#">Ermahgeud</a></li>
+						<li>Get to know what I am working on</li>
+						<li>Get in touch with me </li>
 					</ul>
 				</div>
 			</div>
-			
+			<div id="blog-box">
+				<div class="blog-item">
+					<div class="blog-info">
+						<span class="blog-title">This is a title</span>
+						<span class="blog-date">27 - 11 - 2015</span>
+					</div>
+					<div class="blog-content">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...
+						magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...
+						magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...
+					</div>
+					<div class="blog-footer">
+						<span class="blog-comments">
+							11 comments on this blog. <a href="viewblog.php?id=0">Leave a comment or read more</a>
+						</span>
+					</div>
+				</div>
+				<div class="blog-item">
+					<div class="blog-info">
+						<span class="blog-title">This is a title</span>
+						<span class="blog-date">27 - 11 - 2015</span>
+					</div>
+					<div class="blog-content">
+						Lud exercitation ullamco laboris nisi ut aliquip ex ea commodo...
+						magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...
+						quip ex ea commodo...
+						magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nislore Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incidid
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					</div>
+					<div class="blog-footer">
+						<span class="blog-comments">
+							11 comments on this blog. <a href="viewblog.php?id=1">Leave a comment or read more</a>
+						</span>
+					</div>
+				</div>
+				<div class="blog-item">
+					<div class="blog-info">
+						<span class="blog-title">The first blog evaaaah!</span>
+						<span class="blog-date">27 - 11 - 2015</span>
+					</div>
+					<div class="blog-content">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor inmmodo...
+						magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodcid aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris idunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...
+						magna aliqua. Ut enim ad minim veniam,
+						d exercitation ullamco laboris nisi ut aliquip ex ea commodo...quis nostrsi ut aliquip ex ea commodo...
+					</div>
+					<div class="blog-footer">
+						<span class="blog-comments">
+							4 comments on this blog. <a href="viewblog.php?id=2">Leave a comment or read more</a>
+						</span>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

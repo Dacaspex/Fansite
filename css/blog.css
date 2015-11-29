@@ -20,3 +20,31 @@
 #latest-posts-ul > li {
 	margin-bottom: 10px;
 }
+#blog-box {
+	margin-top: 50px;
+	width: 600px;
+}
+.blog-item {
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 30px;
+	padding-bottom: 20px;
+}
+.blog-info {}
+.blog-title {
+	font-size: 2em;
+}
+.blog-date {
+	margin-left: 20px;
+	font-size: 0.7em;
+	color: #aaa;
+}
+.blog-content {
+	margin-top: 20px;
+}
+.blog-footer {
+	margin-top: 20px;
+}
+.blog-comments {
+	font-size: 0.9em;
+	color: #777;
+}
