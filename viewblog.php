@@ -4,12 +4,14 @@
 	include_once('php/user.php');
 	include_once('php/core.php');
 	include_once('php/blog.php');
+	include_once('php/comment.php');
 
 	// Init variables
 	$user = new User(NULL, NULL, NULL, false);
 	$errorMessage = '';
 	$errorCode = 0;
-	$blogList = NULL;
+	$blog = NULL;
+	$commentList = NULL;
 
 	// Session setup
 	ini_set('session.cookie_httponly', 1);
@@ -82,8 +84,33 @@
 			break;
 	}
 
-	// Load blogs from the database and add them into the html
-	$blogList = Blog::getAllBlogs($dbLink);
+	// Check if blog id is set
+	if (isset($_GET['id'])) {
+
+		// Parse id
+		$id = mysql_real_escape_string($_GET['id']);
+
+		if (!is_numeric($id)) {
+
+			// Id was not a number, throw an error
+			setRedirectCode(4);
+			header("Location: index.php");
+			exit();
+
+		}
+
+		// Get blog from the database
+		$blog = Blog::getBlogById($id, $dbLink);
+
+		$commentList = $blog->getComments($dbLink);
+
+	} else {
+
+		setRedirectCode(4);
+		header("Location: index.php");
+		exit();
+
+	}
 
 ?>
 
@@ -92,7 +119,7 @@
 	<head>
 		<title>E D E N</title>
 		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<link rel="stylesheet" type="text/css" href="css/blog.css">
+		<link rel="stylesheet" type="text/css" href="css/viewblog.css">
 		<link href='https://fonts.googleapis.com/css?family=Roboto:100,300' rel='stylesheet' type='text/css'>
 		<link href='https://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
 	</head>
@@ -101,7 +128,7 @@
 			<ul id="navbar">
 				<li><a href="index.php">Home</a></li>
 				<li><a href="#">About</a></li>
-				<li><a href="#" id="active">Blog</a></li>
+				<li><a href="blog.php" id="active">Blog</a></li>
 				<?php
 					if (!$user->isValidated()) {
 				?>
@@ -140,43 +167,44 @@
 		<div id="wrapper">
 			<div id="margin-fix"></div>
 			<div class="header header-1">
-				Blog!
-			</div>
-			<div id="hero-unit">
-				<div id="latest-blogs-box">
-					<div class="header header-4">
-						Blog
-					</div>
-					<ul id="latest-posts-ul">
-						<li>Get to know what I am working on</li>
-						<li>Get in touch with me </li>
-					</ul>
-				</div>
+				
 			</div>
 			<div id="blog-box">
+				<div id="blog-item">
+					<div id="blog-info">
+						<span id="blog-title"><?php echo $blog->getTitle(); ?></span>
+						<span id="blog-date"><?php echo $blog->getDate(); ?></span>
+					</div>
+					<div id="blog-content">
+						<?php echo $blog->getContent(); ?>
+					</div>
+					<div id="comment-box">
+						<div id="comment-title">Comments</div>
+						<div id="comments">
+							<?php
 
-				<?php
+								foreach ($commentList as $comment) {
+									
+									echo '<div class="comment-item">';
+									echo '<div class="comment-username">' . User::getUserById($comment->getUserId(), $dbLink)->getUsername() . '</div>';
+									echo '<div class="comment-content">' . $comment->getContent() . '</div>';
+									echo '</div>';
 
-					foreach ($blogList as $blog) {
-						
-						// Echo blog info
-						echo '<div class="blog-item">';
-						echo '<div class="blog-info">';
-						echo '<span class="blog-title">' . $blog->getTitle() . '</span>';
-						echo '<span class="blog-date">' . $blog->getDate() . '</span>';
-						echo '</div>';
+								}
 
-						// Echo blog content
-						echo '<div class="blog-content">' . $blog->getContent() . '</div>';
+							?>
+						</div>
+						<?php
 
-						// Echo blog footer
-						echo '<div class="blog-footer">';
-						echo '<span class="blog-comments">' . $blog->countComments($dbLink) . ' people commented on this blog. Click <a href="viewblog.php?id=' . $blog->getId() . '">here</a> to leave a comment</span>';
-						echo '</div></div>';
+							if ($user->isValidated()) {
 
-					}
-
-				?>
+						?>
+						<div id="leave-comment-box">
+							
+						</div>
+						<?php } ?>
+					</div>
+				</div>
 			</div>
 		</div>
 	</body>

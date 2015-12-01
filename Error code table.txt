@@ -4,3 +4,4 @@ Error code table
 1 - Successfully registered
 2 - Something went wrong while registereing
 3 - Successfully logged in
+4 - Blog id didn't parse correctly

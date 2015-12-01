@@ -3,7 +3,6 @@
 	include_once('php/dbLink.php');
 	include_once('php/user.php');
 	include_once('php/core.php');
-	include_once('php/secureSession.php');
 
 	// Init variables
 	$user = NULL;
@@ -15,8 +14,9 @@
 	$email = '';
 
 	// Session setup
-	SecureSession::start();
-	SecureSession::setup();
+	ini_set('session.cookie_httponly', 1);
+	session_start();
+	session_regenerate_id(true);
 
 	// Check for an active session
 	// Else check for login try

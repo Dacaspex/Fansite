@@ -1,0 +1,35 @@
+#blog-box {
+	margin-top: 50px;
+	width: 600px;
+}
+#blog-item {
+	margin-bottom: 30px;
+	padding-bottom: 20px;
+}
+#blog-title {
+	font-size: 2em;
+}
+#blog-date {
+	margin-left: 20px;
+	font-size: 0.7em;
+	color: #aaa;
+}
+#blog-content {
+	margin-top: 20px;
+}
+#comment-box {
+	margin-top: 20px;
+}
+#comment-title {
+	font-size: 1.5em;
+}
+.comment-item {
+	margin-top: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #ddd;
+}
+.comment-username {
+	font-size: 0.9em;
+	color: #aaa;
+	margin-bottom: 10px;
+}

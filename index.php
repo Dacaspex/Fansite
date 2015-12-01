@@ -3,7 +3,6 @@
 	include_once('php/dbLink.php');
 	include_once('php/user.php');
 	include_once('php/core.php');
-	include_once('php/secureSession.php');
 
 	// Init variables
 	$user = new User(NULL, NULL, NULL, false);
@@ -11,8 +10,9 @@
 	$errorCode = 0;
 
 	// Session setup
-	SecureSession::start();
-	SecureSession::setup();
+	ini_set('session.cookie_httponly', 1);
+	session_start();
+	session_regenerate_id(true);
 
 	// Check for an active session
 	// Else check for login try
@@ -21,7 +21,7 @@
 		// Check if session is valid
 		$user = User::getUserById($_SESSION['userId'], $dbLink);
 
-		if ($user->isValidated()) {
+		if (!$user->isValidated()) {
 
 			// Session is not valid, throw error
 			$errorCode = 4;
@@ -48,6 +48,7 @@
 
 					// Log in credentials are correct, log the user in
 					$user->login();
+
 					setRedirectCode(3);
 					header('Location: index.php');
 					exit();
