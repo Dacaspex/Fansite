@@ -33,3 +33,10 @@
 	color: #aaa;
 	margin-bottom: 10px;
 }
+#post-comment-box {
+	margin-top: 20px;
+}
+#post-comment-title {
+	font-size: 1.5em;
+	margin-bottom: 10px;
+}

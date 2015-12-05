@@ -3,15 +3,11 @@
 	include_once('php/dbLink.php');
 	include_once('php/user.php');
 	include_once('php/core.php');
-	include_once('php/blog.php');
-	include_once('php/comment.php');
 
 	// Init variables
 	$user = new User(NULL, NULL, NULL, false);
 	$errorMessage = '';
 	$errorCode = 0;
-	$blog = NULL;
-	$commentList = NULL;
 
 	// Session setup
 	ini_set('session.cookie_httponly', 1);
@@ -52,6 +48,7 @@
 
 					// Log in credentials are correct, log the user in
 					$user->login();
+
 					setRedirectCode(3);
 					header('Location: index.php');
 					exit();
@@ -78,51 +75,23 @@
 		}
 	}
 
+	clearRedirectCode();
+
 	switch ($errorCode) {
+		case 1:
+			$errorMessage = '<div class="panel panel-alert">Username and password format are wrong</div>';
+			break;
+
+		case 2:
+			$errorMessage = '<div class="panel panel-warning">This username does not exists (yet)</div>';
+			break;
+
+		case 3:
+			$errorMessage = '<div class="panel panel-alert">The given password was incorrect</div>';
+			break;
 		
 		default:
 			break;
-	}
-
-	// Check if blog id is set
-	if (isset($_GET['id'])) {
-
-		// Parse id
-		$id = mysql_real_escape_string($_GET['id']);
-
-		if (!is_numeric($id)) {
-
-			// Id was not a number, throw an error
-			setRedirectCode(4);
-			header("Location: index.php");
-			exit();
-
-		}
-
-		// Get blog from the database
-		$blog = Blog::getBlogById($id, $dbLink);
-		
-		// Check if a comment has been submitted
-		if (isset($_POST['comment-submit'])) {
-
-			// Parse comment
-			$comment = mysql_real_escape_string($_POST['fansite-comment']);
-			$comment = strip_tags($comment);
-
-			// Post comment in the database
-			$blog->postComment($comment, $user, $dbLink);
-
-		}
-
-		// Get comment list
-		$commentList = $blog->getComments($dbLink);
-
-	} else {
-
-		setRedirectCode(4);
-		header("Location: index.php");
-		exit();
-
 	}
 
 ?>
@@ -132,16 +101,16 @@
 	<head>
 		<title>E D E N</title>
 		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<link rel="stylesheet" type="text/css" href="css/viewblog.css">
+		<link rel="stylesheet" type="text/css" href="css/shop.css">
 		<link href='https://fonts.googleapis.com/css?family=Roboto:100,300' rel='stylesheet' type='text/css'>
 		<link href='https://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
 		<div id="page-top">
 			<ul id="navbar">
-				<li><a href="index.php">Home</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="blog.php" id="active">Blog</a></li>
+				<li><a href="index.php" id="active">Home</a></li>
+				<li><a href="#">Music</a></li>
+				<li><a href="blog.php">Blog</a></li>
 				<?php
 					if (!$user->isValidated()) {
 				?>
@@ -184,45 +153,25 @@
 				echo $errorMessage;
 
 			?>
-			<div class="header header-1"></div>
-			<div id="blog-box">
-				<div id="blog-item">
-					<div id="blog-info">
-						<span id="blog-title"><?php echo $blog->getTitle(); ?></span>
-						<span id="blog-date"><?php echo $blog->getDate(); ?></span>
+			<div class="header header-1">
+				Shop
+			</div>
+			<div id="shop-content">
+				<div class="shop-section">
+					<div class="header header-6">
+						Albums
 					</div>
-					<div id="blog-content">
-						<?php echo $blog->getContent(); ?>
-					</div>
-					<div id="comment-box">
-						<div id="comment-title">Comments</div>
-						<div id="comments">
-							<?php
-
-								foreach ($commentList as $comment) {
-									
-									echo '<div class="comment-item">';
-									echo '<div class="comment-username">' . User::getUserById($comment->getUserId(), $dbLink)->getUsername() . '</div>';
-									echo '<div class="comment-content">' . stripslashes($comment->getContent()) . '</div>';
-									echo '</div>';
-
-								}
-
-							?>
+					<div class="shop-row">
+						<div class="product-item">
+							<div class="product-image"></div>
+							<div class="product-title">
+								Album 1
+							</div>
+							<div class="product-description">
+								My first album
+							</div>
+							<a class="button button-info">Buy</a>
 						</div>
-						<?php
-
-							if ($user->isValidated()) {
-
-						?>
-						<div id="post-comment-box">
-							<form action="viewblog.php?id=<?php echo $blog->getId(); ?>" method="POST">
-								<div id="post-comment-title">Leave a comment</div>
-								<textarea name="fansite-comment" cols="40" rows="6" placeholder="I really like this blog!"></textarea>
-								<input type="submit" name="comment-submit" value="Send" class="button button-success" />
-							</form>
-						</div>
-						<?php } ?>
 					</div>
 				</div>
 			</div>

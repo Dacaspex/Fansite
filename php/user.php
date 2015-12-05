@@ -15,9 +15,16 @@
 
 		}
 
+		public function getId() {
+
+			return $this->userId;
+
+		}
+
 		public function getUsername() {
 
 			return $this->username;
+
 		}
 
 		public function login() {

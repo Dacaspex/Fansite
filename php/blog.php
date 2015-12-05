@@ -60,6 +60,15 @@
 
 		}
 
+		function postComment($comment, $user, $dbLink) {
+
+			$stmt = $dbLink->prepare("INSERT INTO blog_comments (userId, blogId, content) VALUES (?, ?, ?)");
+
+			$stmt->bind_param("iis", $user->getId(), $this->getId(), $comment);
+			$stmt->execute();
+
+		}
+
 		function countComments($dbLink) {
 
 			$blogCount = 0;
