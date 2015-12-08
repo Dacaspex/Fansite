@@ -23,9 +23,12 @@
 
 		if (!$user->isValidated()) {
 
-			// Session is not valid, throw error
-			$errorCode = 4;
+			// Session is not valid, kill the session and throw an error
 			User::killSession();
+
+			setRedirectCode(6);
+			header('Location: index.php');
+			exit();
 
 		}
 

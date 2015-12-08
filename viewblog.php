@@ -27,9 +27,12 @@
 
 		if (!$user->isValidated()) {
 
-			// Session is not valid, throw error
-			$errorCode = 4;
+			// Session is not valid, kill the session and throw an error
 			User::killSession();
+
+			setRedirectCode(6);
+			header('Location: index.php');
+			exit();
 
 		}
 
@@ -105,12 +108,17 @@
 		// Check if a comment has been submitted
 		if (isset($_POST['comment-submit'])) {
 
-			// Parse comment
-			$comment = mysql_real_escape_string($_POST['fansite-comment']);
-			$comment = strip_tags($comment);
+			// Check if the comment isn't empty
+			if (isset($_POST['fansite-comment'])) {
 
-			// Post comment in the database
-			$blog->postComment($comment, $user, $dbLink);
+				// Parse comment
+				$comment = mysql_real_escape_string($_POST['fansite-comment']);
+				$comment = strip_tags($comment);
+
+				// Post comment in the database
+				$blog->postComment($comment, $user, $dbLink);
+
+			}
 
 		}
 
@@ -123,6 +131,23 @@
 		header("Location: index.php");
 		exit();
 
+	}
+
+	switch ($errorCode) {
+		case 1:
+			$errorMessage = '<div class="panel panel-alert">Username and password format are wrong</div>';
+			break;
+
+		case 2:
+			$errorMessage = '<div class="panel panel-warning">This username does not exists (yet)</div>';
+			break;
+
+		case 3:
+			$errorMessage = '<div class="panel panel-alert">The given password was incorrect</div>';
+			break;
+		
+		default:
+			break;
 	}
 
 ?>
@@ -181,7 +206,22 @@
 			<div id="margin-fix"></div>
 			<?php
 
-				echo $errorMessage;
+				switch ($errorCode) {
+					case 1:
+						echo '<div class="panel panel-alert">Could not register: Passwords didn\'t match</div>';
+						break;
+
+					case 2:
+						echo '<div class="panel panel-warning">Could not register: Invaled username, password and/or e-mail adress<br /><br />Only numbers and letters are allowed in your username and password</div>';
+						break;
+
+					case 3:
+						echo '<div class="panel panel-warning">That username is not available</div>';
+						break;
+					
+					default:
+						break;
+				}
 
 			?>
 			<div class="header header-1"></div>

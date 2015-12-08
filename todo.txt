@@ -1,3 +1,5 @@
 todo:
 
 error message login system op elke pagina
+error sytem improvement
+# vervangen door links

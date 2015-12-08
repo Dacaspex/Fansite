@@ -26,12 +26,20 @@
 		$user = User::getUserById($_SESSION['userId'], $dbLink);
 
 		if (!$user->isValidated()) {
-			// Session was not valid, throw error
+			
+			// Session is not valid, kill the session and throw an error
+			User::killSession();
 
+			setRedirectCode(6);
+			header('Location: index.php');
+			exit();
 
 		} else {
-			// Redirect to index page
-
+			
+			// Redirect to the index page
+			setRedirectCode(7);
+			header('Location: index.php');
+			exit();
 
 		}
 

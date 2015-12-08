@@ -163,14 +163,44 @@
 					</div>
 					<div class="shop-row">
 						<div class="product-item">
-							<div class="product-image"></div>
+							<div class="product-image" type="album"></div>
 							<div class="product-title">
-								Album 1
+								Album 1: Lu Upic
 							</div>
-							<div class="product-description">
-								My first album
+							<?php if ($user->isValidated()) { ?>
+							<a href="buyitem.php?id=1" class="button button-info">Buy</a>
+							<?php } else { ?>
+							<span>Log in to buy stuff</span>
+							<?php } ?>
+						</div>
+						<div class="product-item">
+							<div class="product-image" type="album"></div>
+							<div class="product-title">
+								Album 2: Unuther
 							</div>
-							<a class="button button-info">Buy</a>
+							<?php if ($user->isValidated()) { ?>
+								<a href="buyitem.php?id=2" class="button button-info">Buy</a>
+							<?php } else { ?>
+							<span>Log in to buy stuff</span>
+							<?php } ?>
+						</div>
+					</div>
+				</div>
+				<div class="shop-section">
+					<div class="header header-6">
+						Images
+					</div>
+					<div class="shop-row">
+						<div class="product-item">
+							<div class="product-image" type="image"></div>
+							<div class="product-title">
+								Eden Wallpaper Pack
+							</div>
+							<?php if ($user->isValidated()) { ?>
+								<a href="buyitem.php?id=3" class="button button-info">Buy</a>
+							<?php } else { ?>
+							<span>Log in to buy stuff</span>
+							<?php } ?>
 						</div>
 					</div>
 				</div>

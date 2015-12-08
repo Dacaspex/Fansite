@@ -77,6 +77,17 @@
 	}
 
 	switch ($errorCode) {
+		case 1:
+			$errorMessage = '<div class="panel panel-alert">Username and password format are wrong</div>';
+			break;
+
+		case 2:
+			$errorMessage = '<div class="panel panel-warning">This username does not exists (yet)</div>';
+			break;
+
+		case 3:
+			$errorMessage = '<div class="panel panel-alert">The given password was incorrect</div>';
+			break;
 		
 		default:
 			break;
@@ -101,7 +112,7 @@
 			<ul id="navbar">
 				<li><a href="index.php">Home</a></li>
 				<li><a href="#">About</a></li>
-				<li><a href="#" id="active">Blog</a></li>
+				<li><a href="blog.php" id="active">Blog</a></li>
 				<?php
 					if (!$user->isValidated()) {
 				?>
@@ -112,7 +123,7 @@
 							<div class="header header-6">
 								Log in
 							</div>
-							<form action="index.php" method="POST">
+							<form action="" method="POST">
 								<input type="text" name="username_fansite" placeholder="Username" />
 								<input type="submit" name="submit" value="Log in" id="login-button"/>
 								<div id="password-input">
@@ -153,6 +164,11 @@
 					</ul>
 				</div>
 			</div>
+			<?php 
+
+				echo $errorMessage;
+
+			?>
 			<div id="blog-box">
 
 				<?php

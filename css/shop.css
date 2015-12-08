@@ -1,16 +1,21 @@
 #shop-content {}
+.shop-section {
+	clear: both;
+	padding-top: 20px;
+	height: 100%;
+}
 .shop-section:last-child {
-	margin-bottom: 20px;
+	padding-bottom: 20px;
 }
 .shop-row {
 	margin-top: 20px;
 }
 .product-item {
 	float: left;
-	margin-right: 75px;
+	margin-right: 20px;
 	padding: 10px;
 	width: 230px;
-	height: 300px;
+	height: 320px;
 	border: 1px solid #ccc;
 }
 .product-item:last-child {
@@ -19,13 +24,24 @@
 .product-item > .product-image {
 	width: 230px;
 	height: 230px;
-	background-image: url('https://cdn3.iconfinder.com/data/icons/minimal-1/110/Disk-9-512.png');
 	background-size: 100%;
+}
+.product-item > .product-image[type="album"] {
+	background-image: url('https://cdn3.iconfinder.com/data/icons/minimal-1/110/Disk-9-512.png');
+}
+.product-item > .product-image[type="image"] {
+	background-image: url('https://cdn2.iconfinder.com/data/icons/photo-and-video/500/Landscape_moon_mountains_multiple_photo_photograph_pictury_sun-512.png');
 }
 .product-item > .product-title {
 	margin-top: 10px;
-	width: 200px;
+	width: 230px;
 	text-align: center;
 	font-size: 1.5em;
 	font-weight: bold;
+}
+.product-item > span {
+	margin-top: 10px;
+	display: block;
+	width: 230px;
+	text-align: center;
 }
