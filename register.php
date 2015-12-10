@@ -6,7 +6,7 @@
 
 	// Init variables
 	$user = NULL;
-	$errorCode = 0;
+	$errorMessage = '';
 
 	$username = '';
 	$password = '';
@@ -65,13 +65,13 @@
 					if ($succes) {
 
 						// Successfully reigstered the user, redirect to the index page
-						setRedirectCode(1);
+						setResultCode(1);
 						header('Location: index.php');
 
 					} else {
 
 						// Something went wrong, throw an error
-						setRedirectCode(2);
+						setResultCode(2);
 						header('Location: index.php');
 
 					}
@@ -79,25 +79,39 @@
 				} else {
 
 					// Passwords didn't match, throw an error
-					$errorCode = 1;
+					setResultCode(3);
 
 				}
 
 			} else {
 
 				// Username is not available, throw an error
-				$errorCode = 3;
+				setResultCode(4);
 
 			}
 
 		} else {
 
 			// Invaled credentials, throw an error
-			$errorCode = 2;
+			setResultCode(5);
 
 		}
 
 	}
+
+	switch (getResultCode()) {
+		case 3:
+			$errorMessage = '<div class="panel panel-warning">The password and password check don\'t match</div>';
+			break;
+		case 5:
+			$errorMessage = '<div class="panel panel-warning">Could not register: Invaled username, password and/or e-mail adress<br /><br />Only numbers and letters are allowed in your username and password</div>';
+			break;
+		case 4:
+			$errorMessage = '<div class="panel panel-warning">That username is not available</div>';
+			break;
+	}
+
+	clearResultCode();
 
 ?>
 
@@ -142,22 +156,7 @@
 			</div>
 			<?php
 
-				switch ($errorCode) {
-					case 1:
-						echo '<div class="panel panel-alert">Could not register: Passwords didn\'t match</div>';
-						break;
-
-					case 2:
-						echo '<div class="panel panel-warning">Could not register: Invaled username, password and/or e-mail adress<br /><br />Only numbers and letters are allowed in your username and password</div>';
-						break;
-
-					case 3:
-						echo '<div class="panel panel-warning">That username is not available</div>';
-						break;
-					
-					default:
-						break;
-				}
+				echo $errorMessage;
 
 			?>
 			<form action="register.php" method="POST" id="register-form">

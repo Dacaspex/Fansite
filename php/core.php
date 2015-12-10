@@ -48,17 +48,17 @@
 
 	}
 
-	function setRedirectCode($redirectCode) {
+	function setResultCode($resultCode) {
 
-		$_SESSION["redirect_code"] = $redirectCode;
+		$_SESSION["resultCode"] = $resultCode;
 
 	}
 
-	function getRedirectCode() {
+	function getResultCode() {
 
-		if (isset($_SESSION["redirect_code"])) {
+		if (isset($_SESSION["resultCode"])) {
 
-			return $_SESSION["redirect_code"];
+			return $_SESSION["resultCode"];
 
 		} else {
 
@@ -68,9 +68,9 @@
 
 	}
 
-	function clearRedirectCode() {
+	function clearResultCode() {
 
-		unset($_SESSION["redirect_code"]);
+		unset($_SESSION["resultCode"]);
 
 	}
 

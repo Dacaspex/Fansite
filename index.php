@@ -78,6 +78,16 @@
 		}
 	}
 
+	switch (getResultCode()) {
+		case 1:
+			$errorMessage = '<div class="panel panel-success">Successfully registerd. Log in to enable more features on the site!</div>';
+			break;
+		case 2:
+			$errorMessage = '<div class="panel panel-alert">Something went wrong while registering</div>';
+			break;
+		
+	}
+
 	switch (getRedirectCode()) {
 		case 1:
 			$errorMessage = '<div class="panel panel-success">Successfully registerd. Log in to enable more features on the site!</div>';
