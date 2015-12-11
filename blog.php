@@ -8,7 +8,6 @@
 	// Init variables
 	$user = new User(NULL, NULL, NULL, false);
 	$errorMessage = '';
-	$errorCode = 0;
 	$blogList = NULL;
 
 	// Session setup
@@ -26,8 +25,10 @@
 		if (!$user->isValidated()) {
 
 			// Session is not valid, throw error
-			$errorCode = 4;
 			User::killSession();
+			setResultCode(6);
+			header('Location: index.php');
+			exit();
 
 		}
 
@@ -50,48 +51,32 @@
 
 					// Log in credentials are correct, log the user in
 					$user->login();
-					setRedirectCode(3);
-					header('Location: index.php');
-					exit();
+					setResultCode(8);
 
 				} else {
 
 					// Password and username don't match, throw an error
-					$errorCode = 3;
+					setResultCode(9);
 
 				}
 
 			} else {
 
 				// The username does not appear in the databse, throw an error
-				$errorCode = 2;
+				setResultCode(10);
 
 			}
 
 		} else {
 
 			// Format is wrong, throw an error
-			$errorCode = 1;
+			setResultCode(5);
 
 		}
 	}
 
-	switch ($errorCode) {
-		case 1:
-			$errorMessage = '<div class="panel panel-alert">Username and password format are wrong</div>';
-			break;
-
-		case 2:
-			$errorMessage = '<div class="panel panel-warning">This username does not exists (yet)</div>';
-			break;
-
-		case 3:
-			$errorMessage = '<div class="panel panel-alert">The given password was incorrect</div>';
-			break;
-		
-		default:
-			break;
-	}
+	$errorMessage = getResultCodeMessage(getResultCode());
+	clearResultCode();
 
 	// Load blogs from the database and add them into the html
 	$blogList = Blog::getAllBlogs($dbLink);
@@ -150,6 +135,7 @@
 		</div>
 		<div id="wrapper">
 			<div id="margin-fix"></div>
+			<?php echo $errorMessage ?>
 			<div class="header header-1">
 				Blog!
 			</div>
@@ -164,11 +150,6 @@
 					</ul>
 				</div>
 			</div>
-			<?php 
-
-				echo $errorMessage;
-
-			?>
 			<div id="blog-box">
 
 				<?php

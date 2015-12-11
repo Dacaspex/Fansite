@@ -9,7 +9,6 @@
 	// Init variables
 	$user = new User(NULL, NULL, NULL, false);
 	$errorMessage = '';
-	$errorCode = 0;
 	$blog = NULL;
 	$commentList = NULL;
 
@@ -29,8 +28,8 @@
 
 			// Session is not valid, kill the session and throw an error
 			User::killSession();
-
-			setRedirectCode(6);
+			
+			setResultCode(6);
 			header('Location: index.php');
 			exit();
 

@@ -30,14 +30,14 @@
 			// Session is not valid, kill the session and throw an error
 			User::killSession();
 
-			setRedirectCode(6);
+			setResultCode(6);
 			header('Location: index.php');
 			exit();
 
 		} else {
 			
-			// Redirect to the index page
-			setRedirectCode(7);
+			// User is valid and logged in, redirect to the index page
+			setResultCode(7);
 			header('Location: index.php');
 			exit();
 
@@ -99,18 +99,7 @@
 
 	}
 
-	switch (getResultCode()) {
-		case 3:
-			$errorMessage = '<div class="panel panel-warning">The password and password check don\'t match</div>';
-			break;
-		case 5:
-			$errorMessage = '<div class="panel panel-warning">Could not register: Invaled username, password and/or e-mail adress<br /><br />Only numbers and letters are allowed in your username and password</div>';
-			break;
-		case 4:
-			$errorMessage = '<div class="panel panel-warning">That username is not available</div>';
-			break;
-	}
-
+	$errorMessage = getResultCodeMessage(getResultCode());
 	clearResultCode();
 
 ?>

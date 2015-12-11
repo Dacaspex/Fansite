@@ -17,7 +17,13 @@ Error code table
 
 0 - no error
 1 - Succesfully registered (success, redirect -> index)
-2 - Something went wrong while registered (warning, redirect -> index)
+2 - Something went wrong while registered (alert, redirect -> index)
 3 - Your password and the password check don't match (warning)
 4 - The username is not available (warning)
 5 - The format of your username, password and or email adress are wrong. You can only use letters and numbers in your username and password (warning)
+6 - Something went wrong while checking your log in credentials (alert, redirect -> index)
+7 - You can't register while logged in (warning, redirect -> index)
+8 - Successfully logged in (success)
+9 - Password wass incorrect (warning)
+10 - The username doesn't exist (yet) on this website (warning)
+11 - Successfully logged out (success, redirect -> index)

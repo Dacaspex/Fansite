@@ -25,10 +25,7 @@
 
 			// Session is not valid, kill the session and throw an error
 			User::killSession();
-
-			setRedirectCode(6);
-			header('Location: index.php');
-			exit();
+			setResultCode(6);
 
 		}
 
@@ -51,78 +48,32 @@
 
 					// Log in credentials are correct, log the user in
 					$user->login();
-
-					setRedirectCode(3);
-					header('Location: index.php');
-					exit();
+					setResultCode(8);
 
 				} else {
 
 					// Password and username don't match, throw an error
-					$errorCode = 3;
+					setResultCode(9);
 
 				}
 
 			} else {
 
 				// The username does not appear in the databse, throw an error
-				$errorCode = 2;
+				setResultCode(10);
 
 			}
 
 		} else {
 
 			// Format is wrong, throw an error
-			$errorCode = 1;
+			setResultCode(5);
 
 		}
 	}
 
-	switch (getResultCode()) {
-		case 1:
-			$errorMessage = '<div class="panel panel-success">Successfully registerd. Log in to enable more features on the site!</div>';
-			break;
-		case 2:
-			$errorMessage = '<div class="panel panel-alert">Something went wrong while registering</div>';
-			break;
-		
-	}
-
-	switch (getRedirectCode()) {
-		case 1:
-			$errorMessage = '<div class="panel panel-success">Successfully registerd. Log in to enable more features on the site!</div>';
-			break;
-
-		case 2:
-			$errorMessage = '<div class="panel panel-alert">Something went wrong while registering</div>';
-			break;
-
-		case 3:
-			$errorMessage = '<div class="panel panel-success">Successfully logged in</div>';
-			break;
-		
-		default:
-			break;
-	}
-
-	clearRedirectCode();
-
-	switch ($errorCode) {
-		case 1:
-			$errorMessage = '<div class="panel panel-alert">Username and password format are wrong</div>';
-			break;
-
-		case 2:
-			$errorMessage = '<div class="panel panel-warning">This username does not exists (yet)</div>';
-			break;
-
-		case 3:
-			$errorMessage = '<div class="panel panel-alert">The given password was incorrect</div>';
-			break;
-		
-		default:
-			break;
-	}
+	$errorMessage = getResultCodeMessage(getResultCode());
+	clearResultCode();
 
 ?>
 
