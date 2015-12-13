@@ -21,8 +21,11 @@
 		if (!$user->isValidated()) {
 
 			// Session is not valid, throw error
-			// setRedirectCode(99);
 			User::killSession();
+
+			setResultCode(6);
+			header('Location: index.php');
+			exit();
 
 		}
 
@@ -34,8 +37,8 @@
 
 			if (!is_numeric($id)) {
 
-				// setRedirectCode(99);
-				header('Location: index.php');
+				setResultCode(12);
+				header('Location: shop.php');
 				exit();
 
 			}
@@ -46,18 +49,19 @@
 			if (is_null($product)) {
 
 				// Id didn't match product, throw an error
-				// setRedirectCode(99);
+				setResultCode(12);
 				header('Location: shop.php');
 				exit();
 
 			}
 
-			// All is good, add an order to the 'orders' table
-			$product->buyProduct($user, $dbLink);
+			// All is good, add an order to the orders table
+			$product->buy($user, $dbLink);
 
 			// Redirect to the shop page
-			// setRedirectCode(99);
-			header('Location: shop.php');
+			setResultCode(13);
+			$_SESSION['productId_redirect'] = $id;
+			header('Location: shop.php?');
 			exit();
 
 		}

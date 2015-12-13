@@ -20,7 +20,11 @@
 			return $this->productId;
 		}
 
-		function buyProduct($user, $dbLink) {
+		function getTitle() {
+			return $this->title;
+		}
+
+		function buy($user, $dbLink) {
 
 			$stmt = $dbLink->prepare("INSERT INTO orders (userId, productId) VALUES (?, ?)");
 
@@ -29,7 +33,7 @@
 
 			$stmt->close();
 
-			// Remove 1 unit from the 'amount' field in the database
+			// Remove 1 unit from the amount field in the database
 			$stmt = $dbLink->prepare("UPDATE products SET amount = amount - 1 WHERE id = (?)");
 
 			$stmt->bind_param('i', $this->getId());

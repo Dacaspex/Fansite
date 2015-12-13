@@ -26,6 +26,7 @@
 
 			// Session is not valid, throw error
 			User::killSession();
+			
 			setResultCode(6);
 			header('Location: index.php');
 			exit();
@@ -96,8 +97,8 @@
 		<div id="page-top">
 			<ul id="navbar">
 				<li><a href="index.php">Home</a></li>
-				<li><a href="#">About</a></li>
 				<li><a href="blog.php" id="active">Blog</a></li>
+				<li><a href="shop.php">Shop</a></li>
 				<?php
 					if (!$user->isValidated()) {
 				?>

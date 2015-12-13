@@ -116,8 +116,8 @@
 		<div id="page-top">
 			<ul id="navbar">
 				<li><a href="index.php">Home</a></li>
-				<li><a href="#">Music</a></li>
 				<li><a href="blog.php">Blog</a></li>
+				<li><a href="shop.php">Shop</a></li>
 				<li class="pull-right" id="sub-menu-toggle">
 					<a href="#" class="no-link">Login / Register</a>
 					<div id="sub-menu">

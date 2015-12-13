@@ -101,6 +101,21 @@
 			case 10:
 				return '<div class="panel panel-warning">That username doesn\'t exist (yet) on this website. Click <a href="register.php">here</a> to create an account</div>';
 				break;
+			case 11:
+				return '<div class="panel panel-success">Successfully logged out</div>';
+				break;
+			case 12:
+				return '<div class="panel panel-alert">Something went wrong while retrieving and or checking the selected product id</div>';
+				break;
+			case 13:
+				include_once('product.php');
+				include_once('dbLink.php');
+
+				global $dbLink;
+				$id = $_SESSION['productId_redirect'];
+
+				return '<div class="panel panel-success">Successfully bought your selected product. Added 1 <em>' . Product::getProductById($id, $dbLink)->getTitle() . '</em> to the orders table</div>';
+				break;
 		}
 
 	}

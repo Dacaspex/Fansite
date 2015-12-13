@@ -5,7 +5,7 @@
 	$dbUser = "root";
 	$dbPassword = "";
 	$dbDatabaseName = "fansite";
-
+	
 	$dbLink = new mysqli($dbAdress, $dbUser, $dbPassword, $dbDatabaseName);
 
 	if ($dbLink->connect_error) {

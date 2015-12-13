@@ -27,3 +27,6 @@ Error code table
 9 - Password wass incorrect (warning)
 10 - The username doesn't exist (yet) on this website (warning)
 11 - Successfully logged out (success, redirect -> index)
+12 - Something went wrong while retrieving and or checking the selected product id (alert, redirect -> shop)
+13 - Successfully bought product (success, redirect -> shop)
+14 - Something went wrong while retrieving the blog (alert, redirect -> blog)

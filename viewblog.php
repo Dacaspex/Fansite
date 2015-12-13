@@ -26,7 +26,7 @@
 
 		if (!$user->isValidated()) {
 
-			// Session is not valid, kill the session and throw an error
+			// Session is not valid, throw error
 			User::killSession();
 			
 			setResultCode(6);
@@ -54,36 +54,28 @@
 
 					// Log in credentials are correct, log the user in
 					$user->login();
-					setRedirectCode(3);
-					header('Location: index.php');
-					exit();
+					setResultCode(8);
 
 				} else {
 
 					// Password and username don't match, throw an error
-					$errorCode = 3;
+					setResultCode(9);
 
 				}
 
 			} else {
 
 				// The username does not appear in the databse, throw an error
-				$errorCode = 2;
+				setResultCode(10);
 
 			}
 
 		} else {
 
 			// Format is wrong, throw an error
-			$errorCode = 1;
+			setResultCode(5);
 
 		}
-	}
-
-	switch ($errorCode) {
-		
-		default:
-			break;
 	}
 
 	// Check if blog id is set
@@ -95,8 +87,8 @@
 		if (!is_numeric($id)) {
 
 			// Id was not a number, throw an error
-			setRedirectCode(4);
-			header("Location: index.php");
+			setResultCode(14);
+			header("Location: blog.php");
 			exit();
 
 		}
@@ -126,28 +118,14 @@
 
 	} else {
 
-		setRedirectCode(4);
-		header("Location: index.php");
+		setResultCode(14);
+		header("Location: blog.php");
 		exit();
 
 	}
 
-	switch ($errorCode) {
-		case 1:
-			$errorMessage = '<div class="panel panel-alert">Username and password format are wrong</div>';
-			break;
-
-		case 2:
-			$errorMessage = '<div class="panel panel-warning">This username does not exists (yet)</div>';
-			break;
-
-		case 3:
-			$errorMessage = '<div class="panel panel-alert">The given password was incorrect</div>';
-			break;
-		
-		default:
-			break;
-	}
+	$errorMessage = getResultCodeMessage(getResultCode());
+	clearResultCode();
 
 ?>
 
@@ -164,8 +142,8 @@
 		<div id="page-top">
 			<ul id="navbar">
 				<li><a href="index.php">Home</a></li>
-				<li><a href="#">About</a></li>
 				<li><a href="blog.php" id="active">Blog</a></li>
+				<li><a href="shop.php">Shop</a></li>
 				<?php
 					if (!$user->isValidated()) {
 				?>
@@ -176,7 +154,7 @@
 							<div class="header header-6">
 								Log in
 							</div>
-							<form action="index.php" method="POST">
+							<form action="" method="POST">
 								<input type="text" name="username_fansite" placeholder="Username" />
 								<input type="submit" name="submit" value="Log in" id="login-button"/>
 								<div id="password-input">
@@ -205,22 +183,7 @@
 			<div id="margin-fix"></div>
 			<?php
 
-				switch ($errorCode) {
-					case 1:
-						echo '<div class="panel panel-alert">Could not register: Passwords didn\'t match</div>';
-						break;
-
-					case 2:
-						echo '<div class="panel panel-warning">Could not register: Invaled username, password and/or e-mail adress<br /><br />Only numbers and letters are allowed in your username and password</div>';
-						break;
-
-					case 3:
-						echo '<div class="panel panel-warning">That username is not available</div>';
-						break;
-					
-					default:
-						break;
-				}
+				echo $errorMessage;
 
 			?>
 			<div class="header header-1"></div>
