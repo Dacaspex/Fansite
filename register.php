@@ -12,6 +12,7 @@
 	$password = '';
 	$passwordCheck = '';
 	$email = '';
+	$newsletterSelected = 0;
 
 	// Session setup
 	ini_set('session.cookie_httponly', 1);
@@ -50,6 +51,7 @@
 		$password = mysql_real_escape_string($_POST['password123']);
 		$passwordCheck = mysql_real_escape_string($_POST['passwordCheck123']);
 		$email = mysql_real_escape_string($_POST['email123']);
+		$newsletterSelected = (isset($_POST['newsletter123']) ? 1 : 0);
 
 		// Check if the input is correct
 		if (validateText($username) && validateText($password) && validateEmail($email)) {
@@ -60,20 +62,22 @@
 				// Check if passwords match
 				if ($password == $passwordCheck) {
 
-					$succes = User::register($username, $password, $email, $dbLink);
+					$succes = User::register($username, $password, $email, $newsletterSelected, $dbLink);
 
 					if ($succes) {
 
 						// Successfully reigstered the user, redirect to the index page
 						setResultCode(1);
 						header('Location: index.php');
+						exit();
 
 					} else {
 
 						// Something went wrong, throw an error
 						setResultCode(2);
 						header('Location: index.php');
-
+						exit();
+						
 					}
 
 				} else {
@@ -126,10 +130,10 @@
 								Log in
 							</div>
 							<form action="index.php" method="POST">
-								<input type="text" name="username_fansite" placeholder="Username" />
-								<input type="submit" name="submit" value="Log in" id="login-button"/>
+								<input type="text" name="username_fansite" placeholder="Username" tabindex="1" />
+								<input type="submit" name="submit" value="Log in" id="login-button" tabindex="3" />
 								<div id="password-input">
-									<input type="password" name="password_fansite" placeholder="Password" id="password-input"/>
+									<input type="password" name="password_fansite" placeholder="Password" id="password-input" tabindex="2" />
 								</div>
 							</form>
 							<span>Or <a href="register.php">register</a></span>
@@ -165,6 +169,10 @@
 					<tr>
 						<td>E-mail adress</td>
 						<td><input type="text" name="email123" placeholder="E-mail" <?php echo 'value="' . $email . '"'; ?> /></td>
+					</tr>
+					<tr>
+						<td>I want the awesome newsletter</td>
+						<td><label>Yes</label><input type="checkbox" name="newsletter123" checked="checked" value="true" /></td>
 					</tr>
 					<tr>
 						<td class="label"></td>

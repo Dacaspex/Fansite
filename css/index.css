@@ -28,32 +28,11 @@
 	margin-top: 10px;
 	font-size: 1.5em;
 }
-#newsletter-box {
+#hero-box {
 	padding: 20px 0px;
 	width: 100%;
 	background-color: #eee;
-}
-#newsletter-form {
-	margin: 0px auto;
-	width: 600px;
-}
-#newsletter-box > span {
-	float: left;
-	font-size: 1em;
-	color: #777;
-}
-#newsletter-form > input[type=text] {
-	margin: 0px;
-	width: 340px;
-}
-#newsletter-form > .button {
-	display: block;
-	float: right;
-	margin: 0px;
-	margin-top: 0px;
-	width: 70px;
-	height: 39px;
-	line-height: 39px;
+	text-align: center;
 }
 #col-1 {
 	width: 580px;
@@ -62,4 +41,13 @@
 #col-2 {
 	width: 300px;
 	float: right;
+}
+.music-link {
+	padding-left: 10px;
+	margin-bottom: 5px;
+	display: block;
+	font-size: 1.4em;
+}
+.music-link:hover {
+	background-color: #F6F6F6;
 }

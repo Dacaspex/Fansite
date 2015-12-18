@@ -69,13 +69,13 @@
 
 		}
 
-		public static function register($username, $password, $email, $dbLink) {
+		public static function register($username, $password, $email, $newsletterSelected, $dbLink) {
 
 			$hashedPassword = generateHash($password);
 
-			$stmt = $dbLink->prepare("INSERT INTO users (username, password, email) VALUES (?, ?, ?)");
+			$stmt = $dbLink->prepare("INSERT INTO users (username, password, email, newsletter_selected) VALUES (?, ?, ?, ?)");
 
-			$stmt->bind_param('sss', $username, $hashedPassword, $email);
+			$stmt->bind_param('sssi', $username, $hashedPassword, $email, $newsletterSelected);
 			$stmt->execute();
 			$stmt->close();
 

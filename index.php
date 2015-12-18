@@ -7,7 +7,6 @@
 	// Init variables
 	$user = new User(NULL, NULL, NULL, false);
 	$errorMessage = '';
-	$errorCode = 0;
 
 	// Session setup
 	ini_set('session.cookie_httponly', 1);
@@ -103,10 +102,10 @@
 								Log in
 							</div>
 							<form action="index.php" method="POST">
-								<input type="text" name="username_fansite" placeholder="Username" />
-								<input type="submit" name="submit" value="Log in" id="login-button"/>
+								<input type="text" name="username_fansite" placeholder="Username" tabindex="1" />
+								<input type="submit" name="submit" value="Log in" id="login-button" tabindex="3" />
 								<div id="password-input">
-									<input type="password" name="password_fansite" placeholder="Password" id="password-input"/>
+									<input type="password" name="password_fansite" placeholder="Password" id="password-input" tabindex="2" />
 								</div>
 							</form>
 							<span>Or <a href="register.php">register</a></span>
@@ -135,12 +134,8 @@
 				</div>
 			</div>
 		</div>
-		<div id="newsletter-box">
-			<form id="newsletter-form">
-				<span>Sign in for the newsletter</span>
-				<input type="text" placeholder="e-mail"/>
-				<input class="button button-success button-inline" type="submit" value="Send">
-			</form>
+		<div id="hero-box">
+			Welcome to my website
 		</div>
 		<div id="wrapper">
 			<div id="margin-fix"></div>
@@ -162,7 +157,13 @@
 					Latest music
 				</div>
 				<p>
-					
+					<a href="https://www.youtube.com/watch?v=cyDOUPz0hpA" class="music-link">Billie Jean</a>
+					<a href="https://www.youtube.com/watch?v=YthChN1Wq8M" class="music-link">Wake up</a>
+					<a href="https://www.youtube.com/watch?v=syXq0ICfFDg" class="music-link">XO</a>
+					<a href="https://www.youtube.com/watch?v=v8KPX-KPsFU" class="music-link">Fumes</a>
+					<a href="https://www.youtube.com/watch?v=0pVABElms84" class="music-link">End Credits</a>
+					<a href="https://www.youtube.com/watch?v=fwbtB4vRXHg" class="music-link">Nocturne</a>
+					<a href="https://www.youtube.com/watch?v=f1eMI0d-1Hs" class="music-link">Gravity</a>
 				</p>
 			</div>
 		</div>

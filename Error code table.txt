@@ -1,18 +1,6 @@
 Error code table
 
 
-== OLD ==
-
-0 - No error
-1 - Successfully registered
-2 - Something went wrong while registereing
-3 - Successfully logged in
-4 - Blog id didn't parse correctly
-5 - Logged out successfully
-6 - Something went wrong while checking your login status
-7 - You can't register while logged in
-
-
 == NEW ==
 
 0 - no error

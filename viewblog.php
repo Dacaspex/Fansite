@@ -93,6 +93,16 @@
 
 		}
 
+		// Check if id corresponds with a blog from the database
+		if (!BLog::idExists($id, $dbLink)) {
+
+			// Id doesn't exist, throw an error
+			setResultCode(14);
+			header("Location: blog.php");
+			exit();
+
+		}
+
 		// Get blog from the database
 		$blog = Blog::getBlogById($id, $dbLink);
 		
@@ -155,10 +165,10 @@
 								Log in
 							</div>
 							<form action="" method="POST">
-								<input type="text" name="username_fansite" placeholder="Username" />
-								<input type="submit" name="submit" value="Log in" id="login-button"/>
+								<input type="text" name="username_fansite" placeholder="Username" tabindex="1" />
+								<input type="submit" name="submit" value="Log in" id="login-button" tabindex="3" />
 								<div id="password-input">
-									<input type="password" name="password_fansite" placeholder="Password" id="password-input"/>
+									<input type="password" name="password_fansite" placeholder="Password" id="password-input" tabindex="2" />
 								</div>
 							</form>
 							<span>Or <a href="register.php">register</a></span>

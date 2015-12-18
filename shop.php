@@ -106,10 +106,10 @@
 								Log in
 							</div>
 							<form action="" method="POST">
-								<input type="text" name="username_fansite" placeholder="Username" />
-								<input type="submit" name="submit" value="Log in" id="login-button"/>
+								<input type="text" name="username_fansite" placeholder="Username" tabindex="1" />
+								<input type="submit" name="submit" value="Log in" id="login-button" tabindex="3" />
 								<div id="password-input">
-									<input type="password" name="password_fansite" placeholder="Password" id="password-input"/>
+									<input type="password" name="password_fansite" placeholder="Password" id="password-input" tabindex="2" />
 								</div>
 							</form>
 							<span>Or <a href="register.php">register</a></span>
@@ -154,7 +154,7 @@
 							<?php if ($user->isValidated()) { ?>
 							<a href="buyitem.php?id=1" class="button button-info">Buy</a>
 							<?php } else { ?>
-							<span>Log in to buy stuff</span>
+							<span>Log in to buy this</span>
 							<?php } ?>
 						</div>
 						<div class="product-item">
@@ -165,7 +165,7 @@
 							<?php if ($user->isValidated()) { ?>
 								<a href="buyitem.php?id=2" class="button button-info">Buy</a>
 							<?php } else { ?>
-							<span>Log in to buy stuff</span>
+							<span>Log in to buy this</span>
 							<?php } ?>
 						</div>
 					</div>
@@ -183,7 +183,7 @@
 							<?php if ($user->isValidated()) { ?>
 								<a href="buyitem.php?id=3" class="button button-info">Buy</a>
 							<?php } else { ?>
-							<span>Log in to buy stuff</span>
+							<span>Log in to buy this</span>
 							<?php } ?>
 						</div>
 					</div>

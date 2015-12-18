@@ -76,6 +76,8 @@
 		}
 	}
 
+	echo var_dump(getResultCode());
+
 	$errorMessage = getResultCodeMessage(getResultCode());
 	clearResultCode();
 
@@ -110,10 +112,10 @@
 								Log in
 							</div>
 							<form action="" method="POST">
-								<input type="text" name="username_fansite" placeholder="Username" />
-								<input type="submit" name="submit" value="Log in" id="login-button"/>
+								<input type="text" name="username_fansite" placeholder="Username" tabindex="1" />
+								<input type="submit" name="submit" value="Log in" id="login-button" tabindex="3" />
 								<div id="password-input">
-									<input type="password" name="password_fansite" placeholder="Password" id="password-input"/>
+									<input type="password" name="password_fansite" placeholder="Password" id="password-input" tabindex="2" />
 								</div>
 							</form>
 							<span>Or <a href="register.php">register</a></span>

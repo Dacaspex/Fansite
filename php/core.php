@@ -11,6 +11,9 @@
 		if (ctype_space($text))
 			return false;
 
+		if (strlen($text) < 5 || strlen($text) > 50)
+			return false;
+
 		return true;
 
 	}
@@ -49,7 +52,7 @@
 	}
 
 	function setResultCode($resultCode) {
-
+		
 		$_SESSION["resultCode"] = $resultCode;
 
 	}
@@ -72,7 +75,7 @@
 
 		switch ($resultCode) {
 			case 1:
-				return '<div class="panel panel-success">Successfully registerd. Log in to enable more features on the site!</div>';
+				return '<div class="panel panel-success">Successfully registered. Log in to enable more features on the site!</div>';
 				break;
 			case 2:
 				return '<div class="panel panel-alert">Something went wrong while registering</div>';
@@ -84,7 +87,7 @@
 				return '<div class="panel panel-warning">That username is not available</div>';
 				break;
 			case 5:
-				return '<div class="panel panel-warning">The format of your username, password and or email adress are wrong. <br><br>You can only use letters and numbers in your username and password</div>';
+				return '<div class="panel panel-warning">The format of your username, password and or email adress are wrong. <br><br>You can only use letters and numbers in your username and password. Also, your username and password should be between 6 and 49 characters long</div>';
 				break;
 			case 6:
 				return '<div class="panel panel-alert">Something went wrong while checking your log in credentials</div>';
@@ -115,6 +118,9 @@
 				$id = $_SESSION['productId_redirect'];
 
 				return '<div class="panel panel-success">Successfully bought your selected product. Added 1 <em>' . Product::getProductById($id, $dbLink)->getTitle() . '</em> to the orders table</div>';
+				break;
+			case 14:
+				return '<div class="panel panel-alert">Something went wrong while retrieving the blog</div>';
 				break;
 		}
 

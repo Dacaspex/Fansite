@@ -108,6 +108,27 @@
 
 		}
 
+		static function idExists($id, $dbLink) {
+
+			$stmt = $dbLink->prepare("SELECT id FROM blogs");
+
+			$stmt->execute();
+			$stmt->bind_result($resultId);
+
+			while ($stmt->fetch()) {
+
+				if ($id == $resultId) {
+					$stmt->close();
+					return true;
+				}
+
+			}
+
+			$stmt->close();
+			return false;
+
+		}
+
 		static function getAllBlogs($dbLink) {
 
 			$blogList = array();
